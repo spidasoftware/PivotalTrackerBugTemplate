@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var template = document.getElementById("template").value;
       chrome.storage.local.set({'bug_template': template}, function() {
           // Notify that template is saved.  
-          alert('Template saved');
+          alert('Template saved, please reload PivotalTracker page.');
         });
     });
   restore.addEventListener('click', function() {

@@ -5,6 +5,7 @@ chrome.extension.sendMessage({}, function(response) {
 
 		chrome.storage.local.get(null,function (obj){
       var bug_template = obj["bug_template"];
+      console.log(bug_template);
         function addTemplateButton() {
           
           var clone_story = document.querySelector('.clone_story');
@@ -19,7 +20,7 @@ chrome.extension.sendMessage({}, function(response) {
           template_button.innerHTML = '<img src="//d3jgo56a5b0my0.cloudfront.net/next/assets/next/ef3f29e8-bug.png">';
           clone_story.className = clone_story.className + ' capped';
           clone_story.insertAdjacentElement('beforebegin', template_button);
-
+          console.log("added");
           template_button.addEventListener('click', template, true);
 
           function template(e) {
@@ -44,6 +45,6 @@ chrome.extension.sendMessage({}, function(response) {
           addTemplateButton();
         });
     });
-	}
+	};
 	}, 10);
 });
