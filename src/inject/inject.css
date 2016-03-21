@@ -1,0 +1,11 @@
+/**
+ * Place your custom CSS styles here.
+ **/
+
+.controls {
+  width: 340px;
+}
+
+.autosaves.template.left_endcap > img {
+  margin-left: -4px;
+}
