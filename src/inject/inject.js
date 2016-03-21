@@ -3,23 +3,24 @@ chrome.extension.sendMessage({}, function(response) {
 	if (document.readyState === "complete") {
 		clearInterval(readyStateCheckInterval);
 
+    var bug_template ='##### OVERVIEW: \n\n\n##### PLATFORM: \n\n\n##### VERSION: \n* Build number: \n* Marketing version: \n\n##### DEVICE: \n* Device model: \n* OS: \n\n##### CONTACT: \n\n\n##### STEPS: \n**Given** \n**When** \n**Then**  \n**And** \n\n- Actual result: \n\n- Expected result: \n\n\n##### LOGS: \n\r';
+
 		chrome.storage.local.get(null,function (obj){
-      var bug_template = obj["bug_template"];
-      if (obj["bug_template"] == undefined) { bug_template ='##### OVERVIEW: \n\n\n##### PLATFORM: \n\n\n##### VERSION: \n* Build number: \n* Marketing version: \n\n##### DEVICE: \n* Device model: \n* OS: \n\n##### CONTACT: \n\n\n##### STEPS: \n**Given** \n**When** \n**Then**  \n**And** \n\n- Actual result: \n\n- Expected result: \n\n\n##### LOGS: \n\r' }
-      console.log(bug_template);
-      
+      if (obj["bug_template"] != undefined) { bug_template = obj["bug_template"] }
+        console.log(bug_template);
+    });  
+
         function addTemplateButton() {
-          
-          var clone_story = document.querySelector('.clone_story');
-          var template_button = document.createElement('button');
-          var control_bar = document.querySelector('.controls');
+          var clone_story = $('.clone_story')[0];
+          var control_bar = $('.edit>.controls')[0];
           template;
 
           if (!control_bar) { return; }
           if ($(control_bar).find('.template').length) { return; }
-
-          template_button.className = 'autosaves template left_endcap';
+          var template_button = document.createElement('button');
+          template_button.className = 'left_endcap hoverable template';
           template_button.innerHTML = '<img src="//d3jgo56a5b0my0.cloudfront.net/next/assets/next/ef3f29e8-bug.png">';
+
           clone_story.className = clone_story.className + ' capped';
           clone_story.insertAdjacentElement('beforebegin', template_button);
           template_button.addEventListener('click', template, true);
@@ -42,10 +43,10 @@ chrome.extension.sendMessage({}, function(response) {
 
         }
 
-        $('body').on('DOMSubtreeModified', function() {
+        $('body').on('DOMSubtreeModified', function(e) {
           addTemplateButton();
         });
-    });
-	};
+
+	  }
 	}, 10);
 });

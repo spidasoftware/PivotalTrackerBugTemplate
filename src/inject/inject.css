@@ -3,9 +3,9 @@
  **/
 
 .controls {
-  width: 340px;
+  width: 314px;
 }
 
-.autosaves.template.left_endcap > img {
+.template > img {
   margin-left: -4px;
 }
