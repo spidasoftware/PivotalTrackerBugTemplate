@@ -10,12 +10,8 @@
     "128": "icons/icon128.png"
   },
   "default_locale": "en",
-  "options_page": "src/options/index.html",
-  "browser_action": {
-    "default_icon": "icons/icon19.png",
-    "default_title": "Pivotal Tracker Bug Template"
-  },
   "permissions": ["storage"],
+  "web_accessible_resources": ["icons/icon16.png"] ,
   "content_scripts": [
     {
       "matches": [

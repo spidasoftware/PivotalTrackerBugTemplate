@@ -3,12 +3,36 @@ chrome.extension.sendMessage({}, function(response) {
 	if (document.readyState === "complete") {
 		clearInterval(readyStateCheckInterval);
 
-    var bug_template ='##### OVERVIEW: \n\n\n##### PLATFORM: \n\n\n##### VERSION: \n* Build number: \n* Marketing version: \n\n##### DEVICE: \n* Device model: \n* OS: \n\n##### CONTACT: \n\n\n##### STEPS: \n**Given** \n**When** \n**Then**  \n**And** \n\n- Actual result: \n\n- Expected result: \n\n\n##### LOGS: \n\r';
+		const bug_template = `
+# Description:
+
+
+
+## Build Version
+
+
+
+## Steps to Reproduce
+
+
+
+## Expected Result
+
+
+
+## Actual Result
+
+
+
+---------------------------------
+Labels: Blocker|High|Low / Version / Epic
+Attachments: Screen captures / Logs / Calc files
+`;
 
 		chrome.storage.local.get(null,function (obj){
       if (obj["bug_template"] != undefined) { bug_template = obj["bug_template"] }
         console.log(bug_template);
-    });  
+    });
 
         function addTemplateButton() {
           var clone_story = $('.clone_story')[0];
@@ -19,7 +43,8 @@ chrome.extension.sendMessage({}, function(response) {
           if ($(control_bar).find('.template').length) { return; }
           var template_button = document.createElement('button');
           template_button.className = 'left_endcap hoverable template';
-          template_button.innerHTML = '<img src="//d3jgo56a5b0my0.cloudfront.net/next/assets/next/ef3f29e8-bug.png">';
+
+          template_button.innerHTML = '<img src="'+chrome.extension.getURL("icons/icon16.png")+'" width="14px" height="14px" style="padding-top: 2px; padding-left:4px;">';
 
           clone_story.className = clone_story.className + ' capped';
           clone_story.insertAdjacentElement('beforebegin', template_button);
@@ -34,7 +59,7 @@ chrome.extension.sendMessage({}, function(response) {
             ev = new jQuery.Event('keyup');
             ev.which = 13;
             ev.keyCode = 13;
-            
+
             description_textfield.val(bug_template + '\r' + description_text);
             description.find(':submit').trigger('click');
 
